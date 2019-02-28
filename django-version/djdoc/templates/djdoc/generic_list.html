@@ -1,0 +1,71 @@
+{% extends "base/__base.html" %}
+
+{% load staticfiles %}
+
+{% load mptt_tags %}
+{% load widget_tweaks %}
+
+{% block Style_sheets %}
+
+{% endblock Style_sheets %}    
+
+{% block Content_Area %}
+      
+    <div class="container">
+        <div class="row pad-botm">
+            <div class="col-md-12">
+                <h4 class="header-line">List Documents</h4>        
+                <a href="/add_doc/" class="btn btn-info" style="float:right" >Add Document</a>        
+            </div>
+        </div>
+        
+       
+        <div class="col-md-12">
+                     <!--   Basic Table  -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Documents
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Author</th>
+                                            <th>Date</th>
+                                            <th>Version</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for tableqs in object %}
+                                        <tr>
+                                            <td><a href="/edit_doc/{{tableqs.id}}">{{tableqs.title}}</a></td>
+                                            <td>{{tableqs.created_by}}</td>
+                                            <td>{{tableqs.created_on}}</td>
+                                            <td>{{tableqs.version_no}}</td>
+                                        </tr>
+                                       
+                                        {%endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                      <!-- End  Basic Table  -->
+                </div>
+  
+                      
+    </div>
+    
+  
+{% endblock Content_Area %}  
+
+
+
+
+{% block Java_Scripts %}
+
+
+  
+{% endblock %}

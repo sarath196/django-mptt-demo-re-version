@@ -1,0 +1,119 @@
+{% extends "base/__base.html" %}
+
+{% load staticfiles %}
+
+{% load mptt_tags %}
+{% load widget_tweaks %}
+
+{% block Style_sheets %}
+
+{% endblock Style_sheets %}    
+
+{% block Content_Area %}
+      
+     
+		
+		
+						
+      
+    <div class="container">
+    	{%if form.non_field_errors%}
+    	<div class="alert alert-danger"> <strong>ALERT :</strong> {{ form.non_field_errors }} </div> 
+    	{%endif%}
+        <div class="row pad-botm">
+            <div class="col-md-12">
+                <h4 class="header-line">Add Document</h4>                
+            </div>
+        </div>
+        
+       
+        
+        <div class="col-md-12 col-sm-12 col-xs-12">
+               <div class="panel panel-primary">
+                        <div class="panel-heading">
+                           FORM ELEMENTS
+                        </div>
+                        <div class="panel-body">
+                        
+                        <!-- BEGIN FORM-->
+						<form id="inputform" method='post' enctype="multipart/form-data">
+						{% csrf_token %} 
+						
+						{% for	input_form in form %}
+                            <div class="form-group">
+                                            <label>{{input_form.label}}</label>
+                                            
+                                            {%render_field input_form class+="form-control" placeholder=input_form.label %} 
+                                            
+                                        </div>
+                            <hr>
+                         {%endfor%}
+                		    
+                            
+                            
+                            <div class="row">
+								<div class="col-md-offset-4 col-md-4">
+									<button type="submit" class="btn btn-info">Submit</button>
+									<a href=""
+										class="btn grey-salsa btn-outline">Cancel</a>
+								</div>
+							</div>
+                           </form>    
+                  
+                            </div>
+                        </div>
+                        
+                      
+                      {%if related_tree_qs %}  
+                     <!--    Hover Rows  -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Version List 
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th> Title </th>
+                                            <th> Author </th>
+                                            <th> Version </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for treeobj in related_tree_qs%}
+                                        <tr class="{% if treeobj.current_version%} success {%endif%}">
+                                            <td><a href="/change_doc_vers/{{model_content_type_id}}/{{treeobj.id}}">{{treeobj.title}}</a></td>
+                                            <td>{{treeobj.created_by}}</td>
+                                            <td>{{treeobj.version_no}}</td>
+                                            <td>{{treeobj.current_version}}</td>
+                                      
+                                        </tr>
+                                        {%endfor%}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End  Hover Rows  -->
+                {%endif%}
+                        
+                        
+                        
+                        
+                            </div>
+  
+                      
+    </div>
+    
+  
+{% endblock Content_Area %}  
+
+
+
+
+{% block Java_Scripts %}
+
+
+  
+{% endblock %}
